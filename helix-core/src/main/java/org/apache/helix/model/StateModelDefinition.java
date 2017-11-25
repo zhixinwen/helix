@@ -115,6 +115,8 @@ public class StateModelDefinition extends HelixProperty {
       }
     }
 
+    // zhixin: default state:
+    // error -> dropped; error -> initial; initial -> drpoped
     addDefaultTransition(HelixDefinedState.ERROR.toString(), HelixDefinedState.DROPPED.toString(),
         HelixDefinedState.DROPPED.toString());
     addDefaultTransition(HelixDefinedState.ERROR.toString(), _initialState, _initialState);
@@ -129,6 +131,7 @@ public class StateModelDefinition extends HelixProperty {
    * @param to destination state
    * @param next intermediate state to reach the destination
    */
+  // zhixin: intermediate state to minimize state transition when appliable
   void addDefaultTransition(String from, String to, String next) {
     if (!_stateTransitionTable.containsKey(from)) {
       _stateTransitionTable.put(from, new TreeMap<String, String>());

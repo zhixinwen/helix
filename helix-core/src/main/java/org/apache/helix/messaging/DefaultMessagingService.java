@@ -57,6 +57,7 @@ public class DefaultMessagingService implements ClusterMessagingService {
   ConcurrentHashMap<String, MessageHandlerFactory> _messageHandlerFactoriestobeAdded =
       new ConcurrentHashMap<String, MessageHandlerFactory>();
 
+  // zhixn: listen on TASK_REPLY and STATE_TRANSISION
   public DefaultMessagingService(HelixManager manager) {
     _manager = manager;
     _evaluator = new CriteriaEvaluator();

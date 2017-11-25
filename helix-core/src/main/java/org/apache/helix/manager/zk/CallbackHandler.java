@@ -67,6 +67,7 @@ import org.apache.helix.model.Message;
 import org.apache.log4j.Logger;
 import org.apache.zookeeper.Watcher.Event.EventType;
 
+//zhixin: listen on ZK changes and use enqueue/invoke task to process the changes
 public class CallbackHandler implements IZkChildListener, IZkDataListener
 
 {
@@ -103,6 +104,9 @@ public class CallbackHandler implements IZkChildListener, IZkDataListener
    */
   private List<NotificationContext.Type> _expectTypes = nextNotificationType.get(Type.FINALIZE);
 
+  // zhixin: all listeners are registered with this method. ie. all onMessage() is called by this class
+  // This class handles all of the ZK changes, TaskExecutor (and therefore DefaultMessagingService) also depends on this class,
+  // and listens a subset of the Events/ChangeType (ChangeType.MESSAGE; EventType.NodeChildrenChanged, EventType.NodeDeleted, EventType.NodeCreated)
   public CallbackHandler(HelixManager manager, ZkClient client, PropertyKey propertyKey, Object listener, EventType[] eventTypes, ChangeType changeType) {
     if (listener == null) {
       throw new HelixException("listener could not be null");

@@ -110,6 +110,7 @@ public class StateTransitionTableBuilder {
    * @param transitions
    * @return next map
    */
+  //zhixin: build transition map here
   public Map<String, Map<String, String>> buildTransitionTable(List<String> states,
       List<Transition> transitions) {
     // path distance value

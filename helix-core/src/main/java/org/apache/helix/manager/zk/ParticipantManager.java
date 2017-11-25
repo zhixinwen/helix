@@ -331,8 +331,10 @@ public class ParticipantManager {
   }
 
   private void setupMsgHandler() throws Exception {
+    // (zhixin): messaging service register callback to handle state transition
     _messagingService.registerMessageHandlerFactory(_stateMachineEngine.getMessageTypes(),
         _stateMachineEngine);
+    // (zhixin): this is how TaskExecutor get Messages
     _manager.addMessageListener(_messagingService.getExecutor(), _instanceName);
 
     ScheduledTaskStateModelFactory stStateModelFactory = new ScheduledTaskStateModelFactory(_messagingService.getExecutor());
